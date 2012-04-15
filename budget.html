@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<!--
+
+  
+-->
+<html>
+
+
+
+<head>
+  <title>HManager</title>
+  <meta name="description" content="Building Management Application" />
+  <meta name="keywords" content="hmanager, 6.813" />
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/budgetLayout.css" />
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/image_slide.js"></script>
+
+
+<script type="text/javascript">
+	// This allows the Javascript code inside this block to only run when the page
+	// has finished loading in the browser.
+	var update = false;
+	
+	
+	$(document).ready(function() {
+		
+		var canvas = document.getElementById('pointers');  
+		var ctx = canvas.getContext('2d');
+
+		//For expense 1
+		var timebar1 = $(document.getElementById("time1"));
+		var money = $(document.getElementById("expense1"));
+		var endpoint = timebar1.offset();
+		var p1_x = money.offset().left + money.width();
+		var p1_y = money.offset().top;
+		var p2_x = p1_x;
+		var p2_y = p1_y + money.height();
+		
+		
+		ctx.strokeStyle = "#D3D3D3";
+        ctx.lineWidth = 2;
+		ctx.beginPath();
+        ctx.moveTo(p1_x, p1_y);
+        ctx.lineTo(endpoint.left, endpoint.top);
+        ctx.lineTo(p2_x, p2_y);
+        ctx.stroke();
+
+        money.mouseenter(function(e){
+        	//ctx.strokeStyle = "gray";
+        	ctx.fillStyle="#778899";
+    		ctx.beginPath();
+            ctx.moveTo(p1_x, p1_y);
+            ctx.lineTo(endpoint.left, endpoint.top);
+            ctx.lineTo(p2_x, p2_y);
+            ctx.fill();
+        });
+
+        money.mouseleave(function(e){
+        	ctx.strokeStyle = "#D3D3D3";
+        	ctx.fillStyle="white";
+            ctx.lineWidth = 2;
+    		ctx.beginPath();
+            ctx.moveTo(p1_x, p1_y);
+            ctx.lineTo(endpoint.left, endpoint.top);
+            ctx.lineTo(p2_x, p2_y);
+           
+            ctx.fill();
+            ctx.stroke();
+        });
+
+
+      //For expense 2
+		var timebar2 = $(document.getElementById("time2"));
+		var money2 = $(document.getElementById("expense2"));
+		var a_endpoint = timebar2.offset();
+		var a_p1_x = money2.offset().left + money2.width();
+		var a_p1_y = money2.offset().top;
+		var a_p2_x = a_p1_x;
+		var a_p2_y = a_p1_y + money2.height();
+		
+		
+		ctx.strokeStyle = "#A9A9A9";
+        ctx.lineWidth = 2;
+		ctx.beginPath();
+        ctx.moveTo(a_p1_x, a_p1_y);
+        ctx.lineTo(a_endpoint.left, a_endpoint.top);
+        ctx.lineTo(a_p2_x, a_p2_y);
+        ctx.stroke();
+
+        money2.mouseenter(function(e){
+        	ctx.strokeStyle = "#778899";
+            ctx.lineWidth = 2;
+            ctx.fillStyle="#778899";
+    		ctx.beginPath();
+            ctx.moveTo(a_p1_x, a_p1_y);
+            ctx.lineTo(a_endpoint.left, a_endpoint.top);
+            ctx.lineTo(a_p2_x, a_p2_y);
+            ctx.fill();
+        });
+
+        money2.mouseleave(function(e){
+        	ctx.strokeStyle = "#A9A9A9";
+            ctx.lineWidth = 2;
+            ctx.fillStyle="white";
+    		ctx.beginPath();
+            ctx.moveTo(a_p1_x, a_p1_y);
+            ctx.lineTo(a_endpoint.left, a_endpoint.top);
+            ctx.lineTo(a_p2_x, a_p2_y);
+            
+            ctx.fill();
+            ctx.stroke();
+        });
+
+        
+		//Add the updates budget
+		$("#download").click(function(){
+			var timebar3 = $(document.getElementById("time3"));
+			var money3 = $(document.getElementById("expense3"));
+			money3.height(50);
+			timebar3.height(2);
+			
+			var leftovers = $(document.getElementById("leftovers"));
+			leftovers.height(leftovers.height()-50);
+
+			var b_endpoint = timebar3.offset();
+			var b_p1_x = money3.offset().left + money3.width();
+			var b_p1_y = money3.offset().top;
+			var b_p2_x = b_p1_x;
+			var b_p2_y = b_p1_y + money3.height();
+			
+			
+			ctx.strokeStyle = "D3D3D3";
+	        ctx.lineWidth = 2;
+			ctx.beginPath();
+	        ctx.moveTo(b_p1_x, b_p1_y);
+	        ctx.lineTo(b_endpoint.left, b_endpoint.top);
+	        ctx.lineTo(b_p2_x, b_p2_y);
+	        ctx.stroke();
+
+	        money3.mouseenter(function(e){
+	        	ctx.strokeStyle = "#778899";
+	            ctx.lineWidth = 2;
+	            ctx.fillStyle="#778899";
+	    		ctx.beginPath();
+	            ctx.moveTo(b_p1_x, b_p1_y);
+	            ctx.lineTo(b_endpoint.left, b_endpoint.top);
+	            ctx.lineTo(b_p2_x, b_p2_y);
+	            ctx.fill();
+	        });
+
+	        money3.mouseleave(function(e){
+	        	ctx.strokeStyle = "#D3D3D3";
+	            ctx.lineWidth = 2;
+	            ctx.fillStyle="white";
+	    		ctx.beginPath();
+	            ctx.moveTo(b_p1_x, b_p1_y);
+	            ctx.lineTo(b_endpoint.left, b_endpoint.top);
+	            ctx.lineTo(b_p2_x, b_p2_y);
+	            
+	            ctx.fill();
+	            ctx.stroke();
+	        });
+		});
+        
+	});
+
+	
+
+	
+
+</script>
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="welcome">
+	    <h1 id=title_H><a href='index.html'>H</a><a href='index.html'><span>MANAGER</span></a></h1>
+	  </div><!--end welcome-->
+      <div id="menubar">
+		<div class="menu"> 
+		    <ul> 
+		        <li><a href=''>View Budget</a></li> 
+		        <li><a href='status.html'>Building Status</a></li> 
+			<li><a href=''>Projects</a></li>
+			<li><a href=''>View Student Requests</a></li>
+		    </ul> 
+		</div> <!-- end menu; comment out the whole menu thing to hide it from the !home pages -->
+      </div><!--end menubar-->
+    </div><!--end header-->
+    
+	<div id="site_content">	
+		
+<table id="mainTable">	
+	<tr>
+		<td id="budgetimage" style="z-index:100">
+			<div id="moneyLabels">
+				<table id="money">
+					<tr><td align="right" style="padding-bottom:33px">$10000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$9000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$8000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$7000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$6000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$5000</td></tr>	
+					<tr><td align="right" style="padding-bottom:33px">$4000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$3000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$2000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$1000</td></tr>
+					<tr><td align="right" style="padding-bottom:33px">$0</td></tr>
+					
+				</table>
+			</div>
+			<div id="monthLabels">
+				<table id="months">
+					<tr><td align="left" style="padding-bottom:29px">Jan</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Feb</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Mar</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Apr</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">May</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Jun</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Jul</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Aug</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Sep</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Oct</td></tr>
+					<tr><td align="left" style="padding-bottom:29px">Nov</td></tr>
+					<tr><td align="left" style="padding-bottom:30px">Dec</td></tr>
+				</table>
+			</div>
+			<div id="pictureHolder">
+				<canvas id="pointers" width="400" height="400" style="top:0px; left:0px; position:absolute; pointer-events:none "></canvas>
+				<div id=budgetBar style="float: left">
+					<div id="expense1" class="tip" title="$3000.00 water damage"></div>
+					<div id="expense2" class="tip" title="$500.00 new furniture"></div>
+					<div id="expense3" class="tip" title="$1000.00 new copier"></div>
+					<div id="leftovers" class="tip" title='Money Left:: $xx'></div>
+				</div>
+				<div id=time>
+					<div id="time1" class="timebar" style="top:30px ;background:#D3D3D3"></div>
+					<div id="time2" class="timebar" style="top:50px; background:#A9A9A9"></div>
+					<div id="time3" class="Untimebar" style="top:70px; background:#D3D3D3"></div>
+				</div>
+				
+				
+			</div>
+			
+			
+		</td>
+
+		<td id="recentexp">
+			<div>Recent Expenditures</div>
+			<button id="download">Download</button>
+		</td>
+	</tr>
+
+</table>
+	  
+    
+	</div><!--end site_content-->
+  </div><!--end main-->
+
+  <div id="footer">
+    <div id="footer_container">
+	  <div class="footer_container_box">
+		
+	  </div><!--close footer_container_box-->
+      <div class="footer_container_box">
+       
+	  </div><!--close footer_container_box-->
+      <div class="footer_container_boxl">
+		
+	  </div><!--close footer_container_box1-->      
+	  <br style="clear:both"/>
+	  <br />
+	  
+    </div>
+  </div><!--close footer-->  
+  
+<div style="margin: 1em 0 3em 0; text-align: center;"><span>A 6.813 Design Project - 2012</span></div>
+
+
+</body>
+
+</html>
+
+
+
+
+
